@@ -4,3 +4,10 @@ models
 .env
 .DS_Store
 .venv/
+
+qdrant_test.py
+test_flow.py
+test_supervisor_tools.py
+main2.py
+main_test.py
+qdrant_processing.log

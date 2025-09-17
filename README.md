@@ -1,14 +1,17 @@
+# AI Research Paper Chatbot
 <p align="center">
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/language-python%203.11-blue.svg" alt="Python" /></a>
+  <a href="https://qdrant.tech/"><img src="https://img.shields.io/badge/vector%20db-qdrant-orange" alt="Qdrant" /></a>
+  <a href="https://github.com/langchain-ai/langgraph"><img src="https://img.shields.io/badge/framework-langgraph-purple" alt="LangGraph" /></a>
   <a href="https://hub.docker.com/"><img src="https://img.shields.io/badge/image-docker%20hub-blue" alt="Docker Hub" /></a>
   <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/runtime-fastapi%2Buvicorn-green" alt="Runtime" /></a>
   <a href="#license"><img src="https://img.shields.io/badge/license-MIT-yellow" alt="License: MIT" /></a>
 </p>
 
-# 🤖 AI Research Paper Chatbot
 
 A sophisticated multi-agent chatbot system built with LangGraph, FastAPI, and Qdrant Cloud for intelligent research paper analysis and question answering.
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 This chatbot implements a multi-agent architecture using LangGraph, where specialized agents work together to process user queries about research papers. The system combines PDF document retrieval, web search capabilities, and intelligent routing to provide comprehensive answers.
 
@@ -28,13 +31,13 @@ This chatbot implements a multi-agent architecture using LangGraph, where specia
 | **Search Agent** | Web Search | Performs web searches for additional information |
 | **Front Agent** | Response Formatting | Formats and presents final responses to users |
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 chatbot/
 ├── main.py                    # FastAPI application entry point
 ├── dockerfile                 # Docker container configuration
-├── docker-compose.yaml        # Multi-service orchestration
+├── docker-compose.yaml        lo# Multi-service orchestration
 ├── requirements.txt           # Python dependencies
 ├── env.example               # Environment variables template
 ├── graph.png                 # Architecture diagram
@@ -79,7 +82,7 @@ chatbot/
     └── papers/                  # Research paper collection
 ```
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 ### Prerequisites
 
@@ -124,7 +127,17 @@ chatbot/
      -d '{"prompt": "What are the main findings in the research papers?", "thread_id": "test-thread"}'
    ```
 
-## 📚 API Documentation
+### Using Uploaded Docker Image
+You also can simpely using the image that have been build on, by makesure you have the all the cridential as the .env above
+```bash
+# pull image
+docker pull ghcr.io/raffelprama/paper-chatbot:0.0.1
+
+# run image
+docker run --env-file .env -p 5001:5001 ghcr.io/raffelprama/paper-chatbot:0.0.1
+```
+    
+## API Documentation
 
 ### LangGraph Endpoints
 
@@ -148,7 +161,7 @@ chatbot/
 |--------|----------|-------------|------------------|------|
 | `GET` | `/health` | Health check | None | `default` |
 
-## 🔧 How It Works
+## How It Works
 
 ### 1. Query Processing Flow
 
@@ -172,7 +185,7 @@ chatbot/
 - **Conditional routing** ensures queries reach the most appropriate agent
 - **Fallback mechanisms** handle errors gracefully
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Framework**: FastAPI + Uvicorn
 - **AI/ML**: LangGraph, LangChain, OpenAI GPT
@@ -181,7 +194,7 @@ chatbot/
 - **Web Search**: DuckDuckGo Search
 - **Containerization**: Docker + Docker Compose
 
-## 🔮 Future Improvements
+## Future Improvements
 
 ### Short Term (1-3 months)
 - **Enhanced Error Handling**: Implement comprehensive error recovery and user-friendly error messages
@@ -201,25 +214,25 @@ chatbot/
 - **API Rate Limiting**: Implement sophisticated rate limiting and usage quotas
 - **Distributed Architecture**: Scale to handle multiple concurrent users and large document collections
 
-## 📊 Performance Considerations
+## Performance Considerations
 
 - **Vector Search**: Optimized similarity search using Qdrant's efficient indexing
 - **Memory Management**: InMemorySaver provides fast conversation context
 - **Async Processing**: Full async/await support for high concurrency
 - **Docker Optimization**: Multi-stage builds and dependency caching
 
-## 🔒 Security Features
+## Security Features
 
 - **Environment Variables**: Sensitive data stored in environment variables
 - **API Key Management**: Secure handling of OpenAI and Qdrant API keys
 - **Input Validation**: Pydantic schemas ensure data integrity
 - **Error Sanitization**: Prevents sensitive information leakage in error messages
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -227,12 +240,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📞 Support
+## Support
 
 For support and questions, please open an issue in the GitHub repository or contact the development team.
 
 ---
-
-<p align="center">
-  <strong>Built with ❤️ using FastAPI, LangGraph, and Qdrant Cloud</strong>
-</p>
