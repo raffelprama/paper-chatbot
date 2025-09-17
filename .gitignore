@@ -5,6 +5,7 @@ models
 .DS_Store
 .venv/
 
+DATABASE_SETUP.md
 qdrant_test.py
 test_flow.py
 test_supervisor_tools.py

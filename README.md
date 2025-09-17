@@ -29,7 +29,7 @@ This chatbot implements a multi-agent architecture using LangGraph, where specia
 | **Supervisor Agent** | Orchestration | Routes queries to appropriate specialized agents |
 | **PDF Agent** | Document Retrieval | Searches and retrieves relevant information from PDF documents |
 | **Search Agent** | Web Search | Performs web searches for additional information |
-| **Front Agent** | Response Formatting | Formats and presents final responses to users |
+| **Frontdesk Agent** | Response Formatting | Formats and presents final responses to users |
 
 ## Project Structure
 
@@ -242,6 +242,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-For support and questions, please open an issue in the GitHub repository or contact the development team.
+For support and questions, please open an issue in the GitHub repository or contact the owner.
 
 ---
