@@ -10,9 +10,9 @@ from server.src.agent.handoff import supervisor_router
 from server.src.node.supervisor_node import supervisor_agent
 from server.src.node.clarification_node import clarification_agent
 
-memory = InMemorySaver()
+# memory = InMemorySaver()
 
-async def build_graph():
+async def build_graph(memory):
     """
     Build a LangGraph that:
       - uses your OpenAI-compatible model (custom base_url + key)

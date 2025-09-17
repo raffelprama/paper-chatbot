@@ -11,22 +11,31 @@ router = APIRouter(prefix="/langgraph", tags=["langgraph"])
 
 
 # Singleton memory lives inside agent module via InMemorySaver. For clearing, rebuild a new saver.
-_memory = InMemorySaver()
+memory = InMemorySaver()
 _graph_cache = None
 
 
 async def _get_graph():
     global _graph_cache
     if _graph_cache is None:
-        _graph_cache = await build_graph()
+        _graph_cache = await build_graph(memory)
     return _graph_cache
 
 
 @router.post("/chatmessage", response_model=ChatMessageResponse)
-async def chatmessage(prompt: str, thread_id: Optional[str] = None):
+async def chatmessage(prompt: str):
+    """
+    Send a prompt to the LangGraph multi-agent system and receive a response.
+
+    Body params:
+      - prompt (str): The question or instruction to process.
+
+    Returns a JSON object containing the model's response text. Newlines are
+    preserved in the response body.
+    """
     try:
         graph = await _get_graph()
-        thread = thread_id or "default-thread"
+        thread = "default-thread"
         data = await graph.ainvoke(
             {"messages": [HumanMessage(content=prompt)]},
             config={"configurable": {"thread_id": thread}},
@@ -39,13 +48,15 @@ async def chatmessage(prompt: str, thread_id: Optional[str] = None):
 
 
 @router.delete("/memory", response_model=MemoryClearResponse)
-async def clear_memory():
+async def clear_all_memory():
+    """
+    Clear all threads' memory by creating a fresh InMemorySaver and
+    recompiling the graph. This will drop all thread states.
+    """
     try:
-        # Rebuild the graph to reset InMemorySaver state
-        global _graph_cache
-        _graph_cache = await build_graph()
-        return MemoryClearResponse(status="ok", detail="InMemorySaver cleared")
+        global memory, _graph_cache
+        memory = InMemorySaver()
+        _graph_cache = await build_graph(memory)
+        return MemoryClearResponse(status="ok", detail="All memory reinitialized")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-

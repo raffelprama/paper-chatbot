@@ -127,6 +127,46 @@ chatbot/
      -d '{"prompt": "What are the main findings in the research papers?", "thread_id": "test-thread"}'
    ```
 
+## Ingesting PDFs into Qdrant (Cloud)
+
+This project stores embeddings in Qdrant Cloud. To ingest PDFs:
+
+1) Ensure the files are available INSIDE the container.
+
+- The application runs with working directory `/opt/app`.
+- If you mount a volume for `resource/`, the canonical path becomes:
+  - A single file: `/opt/app/resource/task.pdf`
+  - A directory of PDFs: `/opt/app/resource/papers`
+
+2) Call the ingest endpoint with that absolute path:
+
+```bash
+curl -X POST http://localhost:8080/qdrant/data \
+  -H "Content-Type: application/json" \
+  -d '{"dir": "/opt/app/resource/task.pdf"}'
+```
+
+or for a directory:
+
+```bash
+curl -X POST http://localhost:8080/qdrant/data \
+  -H "Content-Type: application/json" \
+  -d '{"dir": "/opt/app/resource/papers"}'
+```
+
+3) List or clear data:
+
+```bash
+curl http://localhost:8080/qdrant/data?limit=25
+curl -X DELETE http://localhost:8080/qdrant/data -H "Content-Type: application/json" -d '{"id":"<POINT_ID>"}'
+curl -X DELETE http://localhost:8080/qdrant/data/all
+```
+
+Notes:
+- Ensure your `.env` has valid Qdrant Cloud URL and API key.
+- Embedding model: `MODEL_E` (default `text-embedding-3-small`).
+- Collection name comes from `COLLECTION_NAME`.
+
 ### Using Uploaded Docker Image
 You also can simpely using the image that have been build on, by makesure you have the all the cridential as the .env above
 ```bash

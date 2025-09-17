@@ -19,12 +19,12 @@ services:
       - BASE_URL=${BASE_URL}
     ports:
       - "8080:8080"
-    # volumes:
-    #   - ./logs:/opt/app/logs
-    #   - ./resource:/opt/app/resource:ro
+    volumes:
+      - "/mnt/d/user/Downloads/__administartion/Arcfusion/task/resource:/app/resource" # makesure this refer to the folder that handel your pdfs
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
+

@@ -3,7 +3,7 @@ import logging
 import json
 from dotenv import load_dotenv
 
-from langchain_qdrant import QdrantVectorStore
+from langchain_qdrant import Qdrant
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import OpenAIEmbeddings
@@ -23,10 +23,10 @@ model_e = os.getenv("MODEL_E")
 api_key = os.getenv("API_KEY")
 base_url = os.getenv("BASE_URL")
 
-retriever = QdrantVectorStore(
+retriever = Qdrant(
     client=qdrant_client,
     collection_name=collection,
-    embedding=OpenAIEmbeddings(
+    embeddings=OpenAIEmbeddings(
         openai_api_base=base_url,
         openai_api_key=api_key,
         model=model_e
