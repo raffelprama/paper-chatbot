@@ -288,7 +288,7 @@ Introduce multi-modal capabilities, personalization, and monitoring:
    - Integrate monitoring tools (e.g., Langsmit) to track usage patterns, performance, and system health.
 
 4. **Additional Agents**  
-   - Expand the multi-agent system with specialized agents to handle new types of queries and workflows.
+   - Expand the multi-agent system with specialized agents to handle new types of queries and workflows. Also improve the agent to can handel API or MCP from Educational Paper Repository (IEEE, ERIC, CORE, etc.)
 
 
 ## Performance Considerations
