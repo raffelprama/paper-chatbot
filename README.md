@@ -78,8 +78,12 @@ chatbot/
 │           ├── qdrant_read.py   # Document retrieval
 │           └── qdrant_remove.py # Document deletion
 │
-└── resource/                    # PDF documents for processing
-    └── papers/                  # Research paper collection
+├── resource/                    # PDF documents for processing
+│   └── papers/                  # Research paper collection
+└── testing/                     # PDF documents for processing
+    └── flow_test.py/            # testing for the graph flow
+    └── qdrant_test.py/          # testing for Qdrant integration
+    └── search_test.py/          # testing for duckduckgo search integration
 ```
 
 ## How to Run Locally
@@ -171,7 +175,7 @@ Notes:
 You also can simpely using the image that have been build on, by makesure you have the all the cridential as the .env above
 ```bash
 # pull image
-docker pull ghcr.io/raffelprama/paper-chatbot:0.0.1
+docker pull ghcr.io/raffelprama/paper-chatbot:0.0.2
 
 # run image
 docker run --env-file .env -p 5001:5001 ghcr.io/raffelprama/paper-chatbot:0.0.2
