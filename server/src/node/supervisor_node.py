@@ -40,7 +40,7 @@ async def supervisor_agent(state: State):
         updated_messages = state["messages"] + [result]
         msg = {"messages": updated_messages}
         final_msg = msg["messages"][-1].content
-        logging.info(f"\n===supervisor_agent==={final_msg}")
+        logging.info(f"\n===supervisor_agent===\n{final_msg}")
 
         if route == "PDF":
             return Command(goto="pdf_agent", update={"messages": final_msg})

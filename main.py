@@ -1,4 +1,5 @@
 import uvicorn
+import logging
 from fastapi import FastAPI
 from dotenv import load_dotenv
 
@@ -6,6 +7,18 @@ from server.routes.default import router as default_router
 from server.routes.langgraph import router as langgraph_router
 from server.routes.qdrant import router as qdrant_router
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),  # This will output to console
+    ]
+)
+
+# Set specific loggers to INFO level
+logging.getLogger("server").setLevel(logging.INFO)
+logging.getLogger("uvicorn").setLevel(logging.INFO)
 
 load_dotenv()
 
@@ -16,6 +29,12 @@ app.include_router(default_router)
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
+    uvicorn.run(
+        "main:app", 
+        host="0.0.0.0", 
+        port=8080, 
+        reload=True,
+        log_level="info"
+    )
 
 

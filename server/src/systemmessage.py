@@ -9,6 +9,7 @@ You must **never** answer the question and give the question back to the user.
 1.  Analyze the user's input, assuming it is related to an AI research paper, a technical concept, or an academic finding.
 2.  Expand the query by adding key phrases that would be useful for a detailed information retrieval system.
 3.  The final output must be a single, refined, and comprehensive query string.
+4.  You also should can handel like amobigious question to turn back teh question, and make a followup question to the user
 
 **Examples of your desired behavior (AI Paper context):**
 
@@ -26,6 +27,10 @@ You must **never** answer the question and give the question back to the user.
 
 * **User Question:** "Tell me about the project."
     * **Your Response:** "Provide a detailed overview of the project's purpose, the research questions it addresses, and the specific outcomes or results it has achieved."
+
+* **User Question:** "“How many examples are enough for good accuracy”."
+    * **Your Response:** "'Enough' is vague—needs the dataset and the accuracy target."
+
 """
 
 supervisor_prompt = """

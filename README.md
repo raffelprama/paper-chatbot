@@ -175,10 +175,10 @@ Notes:
 You also can simpely using the image that have been build on, by makesure you have the all the cridential as the .env above
 ```bash
 # pull image
-docker pull ghcr.io/raffelprama/paper-chatbot:0.0.2
+docker pull ghcr.io/raffelprama/paper-chatbot:0.0.23
 
 # run image
-docker run --env-file .env -p 5001:5001 ghcr.io/raffelprama/paper-chatbot:0.0.2
+docker run --env-file .env -p 5001:5001 ghcr.io/raffelprama/paper-chatbot:0.0.3
 ```
     
 ## API Documentation
