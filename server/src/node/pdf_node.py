@@ -49,7 +49,7 @@ async def pdf_agent(state: State):
             docs = await retriever.ainvoke(last_user_msg)
             context = "\n\n".join([d.page_content for d in docs]) if docs else "no_results"
         except Exception as e:
-            print(f"pdf_agent retriever error: {e}")
+            logging.info(f"pdf_agent retriever error: {e}")
             # Fallback: route to search_agent to continue the flow naturally
             return Command(
                 goto="search_agent",
@@ -65,8 +65,8 @@ async def pdf_agent(state: State):
         result = await llm.ainvoke(messages_to_send)
         msg = result.content.strip().strip('"')
 
-        print(f"\n===pdf_agent (with retriever)===\n{msg}")
-        return {"messages": [result], "next": "supervisor_agent"}
+        logging.info(f"\n===pdf_agent (with retriever)===\n{msg}")
+        return {"messages": [msg], "next": "supervisor_agent"}
     except Exception as e:
         logging.exception("An error occurred in pdf_agent:")
         error_message = HumanMessage(content=f"Error in pdf step: {str(e)}")

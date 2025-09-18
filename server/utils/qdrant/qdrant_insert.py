@@ -272,4 +272,4 @@ def insert_collection(path:str):
 if __name__ == "__main__":
     data = insert_collection("/mnt/d/user/Downloads/__administartion/Arcfusion/task/resource/papers")
     # data = insert_collection("/mnt/c/Users/raffe/OneDrive/Documents/JURNAL/agroeconomic/")
-    print(data)
+    logging.info(data)

@@ -33,9 +33,9 @@ async def search_agent(state: State):
         result = await llm.ainvoke(messages_to_send)
         msg = result.content.strip().strip('"')
         # logging.info(f"===filter_agent===\n{result}")
-        print(f"\n===search_agent===\n{msg}")
+        logging.info(f"\n===search_agent===\n{msg}")
 
-        return {"messages": [result], "state":state}
+        return {"messages": [msg], "state":state}
     except Exception as e:
         logging.exception("An error occurred in search_agent:")
         error_message = HumanMessage(content=f"Error in search step: {str(e)}")

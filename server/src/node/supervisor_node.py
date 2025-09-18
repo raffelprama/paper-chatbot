@@ -1,6 +1,6 @@
 import re
 import json
-from langchain_core.messages import SystemMessage, AIMessage
+from langchain_core.messages import SystemMessage, AIMessage, HumanMessage
 from server.utils.state import State
 from server.service.llm_svc import llm
 from langchain_core.messages import HumanMessage
@@ -22,31 +22,32 @@ async def supervisor_agent(state: State):
         system_prompt = SystemMessage(
             content=supervisor_prompt
         )
-
-        messages_to_send = [system_prompt] + state["messages"]
+        user_promt = HumanMessage(
+        content=state["messages"][-1].content
+        )
+        messages_to_send = [system_prompt] + [user_promt]
         result = await llm.ainvoke(messages_to_send)
-        
 
         content = result.content or ""
         route = _extract_route(content)
 
         if route:
-            user_query = state["messages"][-1].content  # last HumanMessage
+            user_query = state["messages"][-1].content
             merged_content = f"{user_query} ROUTE={route}"
             result = AIMessage(content=merged_content, additional_kwargs=result.additional_kwargs)
 
         # Now update messages
         updated_messages = state["messages"] + [result]
         msg = {"messages": updated_messages}
-        print(f"\n===supervisor_agent===")
-        print(msg["messages"][-1].content)
+        final_msg = msg["messages"][-1].content
+        logging.info(f"\n===supervisor_agent==={final_msg}")
 
         if route == "PDF":
-            return Command(goto="pdf_agent", update={"messages": updated_messages})
+            return Command(goto="pdf_agent", update={"messages": final_msg})
         if route == "SEARCH":
-            return Command(goto="search_agent", update={"messages": updated_messages})
+            return Command(goto="search_agent", update={"messages": final_msg})
         # Default or FRONT
-        return Command(goto="front_agent", update={"messages": updated_messages})
+        return Command(goto="front_agent", update={"messages": final_msg})
     
     except Exception as e:
         logging.exception("An error occurred in supervisor_agent:")

@@ -21,9 +21,9 @@ async def front_agent(state: State):
         result = await llm.ainvoke(messages_to_send)
         # logging.info(f"===filter_agent===\n{result}")
         msg = result.content.strip().strip('"')
-        print(f"\n===front_agent===\n{msg}")
+        logging.info(f"\n===front_agent===\n{msg}")
 
-        return {"messages": [result]}
+        return {"messages": [msg]}
     except Exception as e:
         logging.exception("An error occurred in front_agent:")
         error_message = HumanMessage(content=f"Error in front step: {str(e)}")

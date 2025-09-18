@@ -1,6 +1,7 @@
 from qdrant_client import QdrantClient
 # from server.service.llm_svc import llm
 import os
+import logging
 from dotenv import load_dotenv
 from server.service.qdrant_svc import qdrant_client
 
@@ -28,4 +29,4 @@ def read_collection(limit: int = 50):
 
 if __name__ == "__main__":
     data = read_collection(limit=50)
-    print(data)
+    logging.info(data)

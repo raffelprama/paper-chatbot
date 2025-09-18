@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient, models as rest
 from server.service.qdrant_svc import qdrant_client
+import logging
 
 load_dotenv()
 COLLECTION_NAME = os.environ.get("COLLECTION_NAME")
@@ -23,4 +24,4 @@ def clear_collection():
 
 if __name__ == "__main__":
     data = clear_collection()
-    print(data)
+    logging.info(data)

@@ -174,7 +174,7 @@ You also can simpely using the image that have been build on, by makesure you ha
 docker pull ghcr.io/raffelprama/paper-chatbot:0.0.1
 
 # run image
-docker run --env-file .env -p 5001:5001 ghcr.io/raffelprama/paper-chatbot:0.0.1
+docker run --env-file .env -p 5001:5001 ghcr.io/raffelprama/paper-chatbot:0.0.2
 ```
     
 ## API Documentation
@@ -225,6 +225,25 @@ docker run --env-file .env -p 5001:5001 ghcr.io/raffelprama/paper-chatbot:0.0.1
 - **Conditional routing** ensures queries reach the most appropriate agent
 - **Fallback mechanisms** handle errors gracefully
 
+## Testing
+
+This project includes automated tests to ensure each component functions correctly:
+
+|Test File|	Purpose|
+|---------|-------
+flow_test.py	|End-to-end testing of the full query-processing workflow
+qdrant_test.py	|Verifies Qdrant vector database integration
+search_test.py	|Ensures the RAG workflow works correctly
+
+**Running the tests:**
+
+*Always run from the project root folder (chatbot/) to ensure imports work.*
+```bash
+python -m testing.flow_test
+python -m testing.qdrant_test
+python -m testing.search_test
+```
+
 ## Technology Stack
 
 - **Framework**: FastAPI + Uvicorn
@@ -234,25 +253,39 @@ docker run --env-file .env -p 5001:5001 ghcr.io/raffelprama/paper-chatbot:0.0.1
 - **Web Search**: DuckDuckGo Search
 - **Containerization**: Docker + Docker Compose
 
+
 ## Future Improvements
 
-### Short Term (1-3 months)
-- **Enhanced Error Handling**: Implement comprehensive error recovery and user-friendly error messages
-- **Response Streaming**: Add real-time response streaming for better user experience
-- **Document Management**: Implement document versioning and update mechanisms
-- **Performance Optimization**: Add caching layers and optimize vector search performance
+### Phase 1: Core Enhancements (1 months)
+Focus on improving decision-making, performance, and security:
 
-### Medium Term (3-6 months)
-- **Multi-Modal Support**: Extend to handle images, tables, and other document formats
-- **Advanced RAG**: Implement hybrid search combining semantic and keyword search
-- **User Authentication**: Add user management and conversation history persistence
-- **Analytics Dashboard**: Build monitoring and analytics for usage patterns
+1. **Enhanced Supervisor Decision-Making**  
+   - Improve the logic and intelligence of the Supervisor Agent for more accurate routing and query handling.
 
-### Long Term (6+ months)
-- **Fine-Tuned Models**: Train custom models on domain-specific research papers
-- **Multi-Language Support**: Extend to support multiple languages
-- **API Rate Limiting**: Implement sophisticated rate limiting and usage quotas
-- **Distributed Architecture**: Scale to handle multiple concurrent users and large document collections
+2. **Performance Optimization**  
+   - Optimize vector search, response generation, and overall system efficiency.  
+   - Introduce caching layers to speed up repeated queries.
+
+3. **FastAPI Security Enhancements**  
+   - Implement API key authentication and authorization for secure access to endpoints.
+
+---
+
+### Phase 2: Advanced Features (2 months)
+Introduce multi-modal capabilities, personalization, and monitoring:
+
+1. **Multi-Modal Input Support**  
+   - Allow inputs as images, PDFs, or text for more comprehensive document analysis.
+
+2. **User Personalization**  
+   - Implement a user database and authentication to provide personalized responses and user-specific context.
+
+3. **Monitoring and Analytics**  
+   - Integrate monitoring tools (e.g., Langsmit) to track usage patterns, performance, and system health.
+
+4. **Additional Agents**  
+   - Expand the multi-agent system with specialized agents to handle new types of queries and workflows.
+
 
 ## Performance Considerations
 
@@ -268,9 +301,30 @@ docker run --env-file .env -p 5001:5001 ghcr.io/raffelprama/paper-chatbot:0.0.1
 - **Input Validation**: Pydantic schemas ensure data integrity
 - **Error Sanitization**: Prevents sensitive information leakage in error messages
 
-## License
+## Troubleshooting
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+1. **ModuleNotFoundError: chatbot**
+
+    Run tests from the project root using python 
+    ```
+    -m testing.<testfile>.
+    ```
+
+2. **PDF parsing errors**
+
+    Verify PDFs are not corrupted and are located in resource/papers/.
+
+3. **Qdrant connection issues**
+
+    Check `.env` for valid `QDRANT_URL` and `QDRANT_API_KEY`.
+
+4. **LangGraph / agent routing errors**
+
+    Ensure agent classes exist and are registered in Supervisor Agent.
+
+5. **Docker build/run issues**
+
+    Update Docker/Docker Compose, rebuild with docker-compose up --build.
 
 ## Contributing
 
@@ -279,6 +333,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 
 ## Support
 
