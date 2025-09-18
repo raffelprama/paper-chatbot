@@ -20,7 +20,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - "/mnt/d/user/Downloads/__administartion/Arcfusion/task/resource:/app/resource" # makesure this refer to the folder that handel your pdfs
+      - "/mnt/d/user/Downloads/__administartion/Arcfusion/task/chatbot:/app/resource" # makesure this refer to the folder that handel your pdfs
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 30s
