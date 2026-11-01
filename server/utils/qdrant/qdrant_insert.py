@@ -25,10 +25,13 @@ logger = logging.getLogger(__name__)
 # Configuration
 collection_name = os.environ.get("COLLECTION_NAME")
 
-OPENAI_API_KEY = "sk-G1_wkZ37sEmY4eqnGdcNig"
+OPENAI_API_KEY = os.environ.get("API_KEY")
 EMBEDDING_MODEL = "baai/bge-multilingual-gemma2"
 
-openai_client = OpenAI(api_key=OPENAI_API_KEY, base_url="https://dekallm.cloudeka.ai/v1")
+if not OPENAI_API_KEY:
+    raise RuntimeError("API_KEY is not set. Copy .env.example to .env and fill it in.")
+
+openai_client = OpenAI(api_key=OPENAI_API_KEY, base_url=os.environ.get("BASE_URL"))
 
 def create_embedding(text: str) -> List[float]:
     """Create embedding using OpenAI API"""
